@@ -32,7 +32,7 @@ public class AppTest {
 		
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("URL de su org ");
+        driver.get("https://trailsignup-1b27d308d4f19f.my.salesforce.com");
 	}
 
 	@After
@@ -43,8 +43,8 @@ public class AppTest {
 	@Test
 	public void test() throws InterruptedException{
 		
-		driver.findElement(userNameLocator).sendKeys("Su usuario");
-		driver.findElement(passwordLocator).sendKeys("Su contraseña");
+		driver.findElement(userNameLocator).sendKeys("marizmendi@pocs-mex-oct.com");
+		driver.findElement(passwordLocator).sendKeys("Lwymmd13");
 		driver.findElement(submitButton).click();
 		Thread.sleep(2000);
 		driver.findElement(buttonNavMenu).click();
