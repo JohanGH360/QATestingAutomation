@@ -1,9 +1,11 @@
 package com.trainigqa;
 
+
 /**
- * Hello world!
- *
- */
+* Hello world!
+*
+*/
+
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,54 +15,76 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import org.testng.annotations.Test;
 public class AppTest {
-	
-	By userNameLocator = By.id("username");
-	By passwordLocator = By.id("password");
-	By submitButton = By.id("Login");
-	By buttonNavMenu = By.xpath("//button[@aria-label='Show Navigation Menu']");
-	By solicitudesServicios = By.xpath("//a[@href='/lightning/o/Solicitud_de_Servicio__c/home']");
-	By newSolicitud = By.xpath("//a[@title='New']");
-	By nombreSolicitud = By.xpath("//input[@name='Name']");
-	By clienteRelacionado = By.xpath("//input[@placeholder='Search Contacts...']");
-	By confirmFormularioSolicitud = By.xpath("//h2[@class='header slds-modal__title slds-hyphenate slds-text-heading_medium']");
-	By guardarButton = By.xpath("//button[@name='SaveEdit']");
-	
-	
-	private WebDriver driver;
-	@Before
-	public void setUp() throws Exception {
-		
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("URL de su org ");
-	}
 
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+//Login
+By userNameLocator = By.id("username");
+By passwordLocator = By.id("password");
+By submitButton = By.id("Login");
 
-	@Test
-	public void test() throws InterruptedException{
-		
-		driver.findElement(userNameLocator).sendKeys("Su usuario");
-		driver.findElement(passwordLocator).sendKeys("Su contraseña");
-		driver.findElement(submitButton).click();
-		Thread.sleep(2000);
-		driver.findElement(buttonNavMenu).click();
-		Thread.sleep(2000);
-		driver.findElement(solicitudesServicios).click();
-		Thread.sleep(2000);
-		driver.findElement(newSolicitud).click();
-		Thread.sleep(2000); 
-		if (driver.findElement(confirmFormularioSolicitud).isDisplayed()) {
-			System.out.println("Si se encontro el elemento");
-			driver.findElement(nombreSolicitud).sendKeys("Prueba2");
-			driver.findElement(clienteRelacionado).sendKeys("Maria Clifton");
-			Thread.sleep(2000);
-			driver.findElement(guardarButton).click();
-		}else {
-			System.out.println("No se puede validar que estes creando una nueva solicitud de servicio");
-		}
-	}
+//Buscar Contact
+By buttonApplauncher = By.xpath("//button[@aria-haspopup='dialog' and @title='App Launcher']");
+By searchWrite = By.xpath("//input[@placeholder='Search apps and items...']");
+By buttonContact = By.xpath("//*[@id=\"Contact\"]/div/lightning-formatted-rich-text/span/p/b");
+
+//Crear un nuevo Contacto
+By newContact = By.xpath("//button[@name='NewContact' and @type='button']");
+By buttonNext = By.xpath("//button[@class='slds-button slds-button_neutral slds-button slds-button_brand uiButton' and @data-aura-class='uiButton']");
+
+//Registro del Contact
+By nombreContact = By.xpath("//input[@name='lastName' and @placeholder='Last Name']");
+By searchAccount = By.xpath("//input[@placeholder='Search Accounts...']");
+By searchAccountExist = By.xpath("//lightning-base-combobox-formatted-text[@title='kevin Test']");
+By saveNewContact = By.xpath("//button[@class='slds-button slds-button_brand' and @name='SaveEdit']");
+
+private WebDriver driver;
+@Before
+public void setUp() throws Exception {
+    
+    driver = new ChromeDriver();
+    driver.manage().window().maximize();
+    driver.get("https://trailsignup-1b27d308d4f19f.my.salesforce.com");
+}
+
+
+@After
+public void tearDown() throws Exception {
+    driver.quit();
+}
+
+
+@Test
+public void test() throws InterruptedException{
+    //Login
+    driver.findElement(userNameLocator).sendKeys("kevin191203@qa.test.com");
+    driver.findElement(passwordLocator).sendKeys("diego191203");
+    Thread.sleep(5000);
+    driver.findElement(submitButton).click();
+    Thread.sleep(5000);
+
+    //Dentro de la org
+
+    //Buscar Contacts
+    driver.findElement(buttonApplauncher).click();
+    Thread.sleep(5000);
+    driver.findElement(searchWrite).sendKeys("Contacts");
+    Thread.sleep(5000); 
+    driver.findElement(buttonContact).click();
+    Thread.sleep(5000); 
+
+    //Crear un nuevo contacto
+    driver.findElement(newContact).click();
+    Thread.sleep(5000);
+    driver.findElement(buttonNext).click();
+    Thread.sleep(5000);
+    
+    //Registro
+    driver.findElement(nombreContact).sendKeys("Diego");
+    Thread.sleep(5000); 
+    driver.findElement(searchAccount).sendKeys("kevin");
+    Thread.sleep(5000); 
+    driver.findElement(searchAccountExist).click();
+    Thread.sleep(5000);
+    driver.findElement(saveNewContact).click();
+    Thread.sleep(5000);
+}
 }
